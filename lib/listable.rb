@@ -1,7 +1,7 @@
 module Listable
   # Listable methods go here
   def format_description(description)
-    "#{description}".ljust(25)
+    "#{description}".ljust(30)
   end
 
   def format_date(date, end_date="")
@@ -11,11 +11,17 @@ module Listable
     return dates
   end
 
-  def format_priority
-    value = " ⇧" if @priority == "high"
-    value = " ⇨" if @priority == "medium"
-    value = " ⇩" if @priority == "low"
-    value = "" if !@priority
-    return value
+  def format_priority(priority)
+    case priority
+      when "high"
+        value = " ⇧"
+      when "medium"
+        value = " ⇨"
+      when  "low"
+        value = " ⇩"
+      when ""
+        value = ""
+      return value
+    end
   end
 end
