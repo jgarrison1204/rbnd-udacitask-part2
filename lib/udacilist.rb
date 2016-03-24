@@ -1,4 +1,5 @@
 class UdaciList
+  include UdaciListErrors
   attr_reader :title, :items
 
   def initialize(options={})
@@ -7,13 +8,27 @@ class UdaciList
   end
   def add(type, description, options={})
     type = type.downcase
-    @items.push TodoItem.new(description, options) if type == "todo"
-    @items.push EventItem.new(description, options) if type == "event"
-    @items.push LinkItem.new(description, options) if type == "link"
+    case type
+      when "todo"
+        @items.push TodoItem.new(description, options)
+      when "event"
+        @items.push EventItem.new(description, options)
+      when "link"
+        @items.push LinkItem.new(description, options)
+      else
+        raise InvalidItemType, "Oops, we can't upload that type of file."
+    end
   end
+
   def delete(index)
     @items.delete_at(index - 1)
+    nummber_of_items = @items.length
+    #Not sure this error works. Need to test.
+    if nummber_of_items < index
+      raise IndexExceedsListSize, "Oops, that item number doesn't exist."
+    end
   end
+
   def all
     puts "-" * @title.length
     puts @title
