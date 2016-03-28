@@ -4,11 +4,15 @@ module Listable
     "#{description}".ljust(30)
   end
 
-  def format_date(date, end_date="")
-    dates = date.strftime("%D") if date
-    dates << " -- " + end_date.strftime("%D") if !end_date == ""
-    dates = "No due date" if !dates
-    return dates
+  def format_date(due_and_start_date, end_date="")
+    if end_date == ""
+      due_and_start_date ? due_and_start_date.strftime("%D %R") : "No due date"
+    else
+      dates = due_and_start_date.strftime("%D") if due_and_start_date
+      dates << " -- " + end_date.strftime("%D") if end_date
+      dates = "N/A" if !dates
+      return dates
+    end
   end
 
   def format_priority(priority)
