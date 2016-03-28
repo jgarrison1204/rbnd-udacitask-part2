@@ -1,30 +1,37 @@
 class UdaciList
+  #NOT SURE HOW UdaciListErrors::IndexExceedsListSize calls the module without needing to type include UdaciListErrors
   attr_reader :title, :items
+
+  @@priority_levels = ["low", "medium", "high"]
 
   def initialize(options={})
     @title = options[:title]
     @items = []
   end
+
   def add(type, description, options={})
     type = type.downcase
     case type
       when "todo"
-        @items.push TodoItem.new(description, options)
+          if (@@priority_levels.include? options[:priority]) || !options[:priority]
+            @items.push TodoItem.new(description, options)
+          else
+            raise UdaciListErrors::InvalidPriorityValue, "Oops, that priority level doesn't exist."
+          end
       when "event"
         @items.push EventItem.new(description, options)
       when "link"
         @items.push LinkItem.new(description, options)
       else
-        raise InvalidItemType, "Oops, we can't upload that type of file."
+        raise UdaciListErrors::InvalidItemType, "Oops, we can't upload that type of file."
     end
   end
 
   def delete(index)
     @items.delete_at(index - 1)
     nummber_of_items = @items.length
-    #Not sure this error works. Need to test.
     if nummber_of_items < index
-      raise IndexExceedsListSize, "Oops, that item number doesn't exist."
+      raise UdaciListErrors::IndexExceedsListSize, "Oops, that item number doesn't exist."
     end
   end
 
