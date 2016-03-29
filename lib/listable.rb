@@ -18,14 +18,20 @@ module Listable
   def format_priority(priority)
     case priority
       when "high"
-        value = " ⇧"
+        value = " ⇧".colorize(:blue)
       when "medium"
-        value = " ⇨"
+        value = " ⇨".colorize(:red)
       when  "low"
-        value = " ⇩"
+        value = " ⇩".colorize(:green)
       when ""
         value = ""
       return value
     end
+  end
+
+  def format_filter(title, type)
+    puts "-" * title.length
+    puts "List of items for #{type}s:"
+    puts "-" * title.length
   end
 end
