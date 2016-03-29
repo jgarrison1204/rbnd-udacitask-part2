@@ -1,7 +1,7 @@
 class UdaciList
   #NOT SURE HOW UdaciListErrors::IndexExceedsListSize calls the module without needing to type include UdaciListErrors
+  include Listable
   attr_reader :title, :items
-
   @@priority_levels = ["low", "medium", "high"]
 
   def initialize(options={})
@@ -41,6 +41,16 @@ class UdaciList
     puts "-" * @title.length
     @items.each_with_index do |item, position|
       puts "#{position + 1}) #{item.details}"
+    end
+  end
+
+  def filter(type)
+    filter_by_type = @items.select {|filter| filter.type == type}
+    if filter_by_type
+      format_filter(@title, type)
+      filter_by_type.map {|item_type| puts item_type.details}
+    else
+      "There are no #{type}s in #{@title}"
     end
   end
 end
