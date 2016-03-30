@@ -1,13 +1,18 @@
 # What you added to Udacitask 2.0
 # -------------------------------------------------------
 1. What is the gem of your choice and how did you use it?
+I used terminal-table and I used it to format the filter list for events.
 2. Describe the 2 features you added to the project.
-  a) Feature 1...
-  b) Feature 2...
+  a) Feature 1: Allow users to delete multiple items at once using the splat operator
+  b) Feature 2: Allow users to update the priority status for ToDo list.
 
 # REFLECTIONS
 # -------------------------------------------------------
 1. How long did you spend working on this project?
+    Around 8-10 hours including research.
 2. What was the most rewarding challenge you conquered?
+    Kind of figuring out how to use a new gem without external help.  Although not sure I completely got it.
 3. What two additional features did you build? Why?
+    I added these because they seemed functional and a way to make sure I retained info from previous lessons.
 4. Where do you still have room to grow?
+    Everywhere.
