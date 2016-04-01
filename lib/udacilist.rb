@@ -5,7 +5,11 @@ class UdaciList
   @@priority_levels = ["low", "medium", "high"]
 
   def initialize(options={})
-    @title = options[:title]
+    if options[:title]
+      @title = options[:title]
+    else
+      @title = "Untitled list"
+    end
     @items = []
   end
 
@@ -28,12 +32,12 @@ class UdaciList
   end
 
   #splat operator to allow multiple deletions at a time.
-  def delete(*index)
-    index.each do |item|
-      if @items.length < item
-        raise UdaciListErrors::IndexExceedsListSize, "Oops, that item number doesn't exist."
-      end
-      @items.delete_at(item - 1)
+  def delete(*indices)
+    indices_list = [*indices]
+    if indices_list.any? {|index| index > @items.length}
+      raise UdaciListErrors::IndexExceedsListSize, "Oops, that item number doesn't exist."
+    else
+      @items.delete_if.with_index {|_, index| indices_list.include? index + 1}
     end
   end
 
