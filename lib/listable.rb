@@ -15,6 +15,10 @@ module Listable
     end
   end
 
+  def format_type(type)
+      return "(#{type}) "
+  end
+
   def format_priority(priority)
     case priority
       when "high"
