@@ -16,7 +16,7 @@ module Listable
   end
 
   def format_type(type)
-      return "(#{type}) "
+      return "#{type}: "
   end
 
   def format_priority(priority)
